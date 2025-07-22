@@ -191,7 +191,6 @@
   margin: 0;
 }
 
-/* Responsive Design */
 @media (max-width: 1024px) {
   .landing-container {
     grid-template-columns: 1fr;

@@ -190,8 +190,16 @@ const TasksPage: React.FC = () => {
 
         }}>
           {tasks.map((task) => (
-            <Grid item xs={12} sm={6} md={3} lg={3} key={task.id}>
+            <Grid 
+            item 
+            xs={12} 
+            sm={12} 
+            md={6} 
+            lg={6} 
+            key={task.id}>
             <Card  sx={{ 
+              display:'flex',
+              flexDirection:'column',
               borderLeft: 4, 
               borderColor: '#667eea',
               height: '100%',
@@ -215,12 +223,28 @@ const TasksPage: React.FC = () => {
                       {task.description}
                     </Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                        <AccessTime sx={{ 
+                      <Box sx={{ 
+                        display: 'flex',
+                        flexDirection:'column',
+                        alignItems: 'center',
+                        gap: 0.5,
+                         }}>
+                        
+                        <Typography variant="caption" color="text.secondary"
+                        sx={{alignText:'center',}}
+                        >
+                          <AccessTime sx={{ 
                           fontSize: 16, 
-                          color: 'black' }} />
-                        <Typography variant="caption" color="text.secondary">
-                          Created on: <b>{formatDate(task.dateCreated)}</b>
+                          color:'white'
+                           }} /> 
+                           <br />
+                          <b>Created:</b> <i>{formatDate(task.dateCreated)}</i>
+                        </Typography>
+                        <Typography variant="caption" color="red"
+                        sx={{alignText:'center'}}
+                        >
+                          
+                          <b>Deadline:</b> <i>{formatDate(task.dateCreated)}</i>
                         </Typography>
                       </Box>
                       <Chip 
@@ -235,6 +259,10 @@ const TasksPage: React.FC = () => {
               </CardContent>
               <CardActions sx={{ 
                 gap: 1,
+                mt:'auto',
+                paddingBottom: 2,
+                paddingX: 2,
+                justifyContent: 'flex-start'
                  }}>
                 <Button
                   size="small"

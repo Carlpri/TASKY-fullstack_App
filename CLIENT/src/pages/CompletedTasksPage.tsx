@@ -145,9 +145,25 @@ const CompletedTasksPage: React.FC = () => {
           </CardContent>
         </Card>
       ) : (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <Box sx={{ 
+          display: 'flex',
+          flexWrap:'wrap',
+          justifyContent:'center',
+          gap: 2 }}>
           {tasks.map((task) => (
-            <Card key={task.id} sx={{ 
+            <Box key={task.id}
+            sx={{
+              flex: '1 1 100%',
+              maxWidth :{
+                xs: '100%',
+                sm:'100%',
+                md:'48%',
+                lg:'48%'
+              },
+            }}
+            >
+            <Card  sx={{ 
+              height:'100%',
               borderLeft: 4, 
               borderColor: '#48bb78',
               opacity: 0.9,
@@ -208,11 +224,11 @@ const CompletedTasksPage: React.FC = () => {
                 </IconButton>
               </CardActions>
             </Card>
+            </Box>
           ))}
         </Box>
       )}
 
-      {/* Delete Confirmation Dialog */}
       <Dialog open={deleteDialogOpen} onClose={() => setDeleteDialogOpen(false)}>
         <DialogTitle>Delete Task</DialogTitle>
         <DialogContent>

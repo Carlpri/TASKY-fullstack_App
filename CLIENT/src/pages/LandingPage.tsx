@@ -73,12 +73,12 @@ const LandingPage: React.FC = () => {
   return (
     <Box sx={{ 
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #f5f7fa 0%, #89abe0ff 100%)',
+      background: 'linear-gradient(135deg, #bccbe2ff 0%, #6d91caff 100%)',
       py: 3
     }}>
       <Container maxWidth="lg">
         <Grid container spacing={6} alignItems="center">
-          {/* MY HERO SECTION */}
+
           <Grid item xs={12} md={6}>
             <Box sx={{ textAlign: { xs: 'center', md: 'left' } }}>
               <Typography 
@@ -101,14 +101,13 @@ const LandingPage: React.FC = () => {
               
               <Typography 
                 variant="h6" 
-                color="text.secondary" 
+                color="text.main" 
                 sx={{ mb: 4, lineHeight: 1.6 }}
               >
                 The ultimate task management application that helps you organize your life with ease.
                 Create✍🏾, track 🛤️, and complete✔️ your tasks in TASKY.
               </Typography>
 
-              {/* Features Grid */}
               <Grid container spacing={2} sx={{ mb: 4 }}>
                 {features.map((feature, index) => (
                   <Grid item xs={12} sm={6} key={index}>
@@ -139,7 +138,6 @@ const LandingPage: React.FC = () => {
                 ))}
               </Grid>
 
-              {/* CTA Button to signup a user */}
               <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: { xs: 'center', md: 'flex-start' } }}>
                 <Button
                   component={Link}
@@ -148,6 +146,7 @@ const LandingPage: React.FC = () => {
                   size="large"
                   startIcon={<Add />}
                   sx={{
+                    color:'#ffff',
                     background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                     '&:hover': {
                       background: 'linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%)',
@@ -164,8 +163,8 @@ const LandingPage: React.FC = () => {
                   variant="outlined"
                   size="large"
                   sx={{
-                    borderColor: '#667eea',
-                    color: '#667eea',
+                    borderColor: '#2f4dd1ff',
+                    color: '#ffffffff',
                     '&:hover': {
                       borderColor: '#5a6fd8',
                       backgroundColor: 'rgba(102, 126, 234, 0.04)'
@@ -180,7 +179,6 @@ const LandingPage: React.FC = () => {
             </Box>
           </Grid>
 
-          {/*   Sample of tasks */}
           <Grid item xs={12} md={6}>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
               <Paper 
@@ -189,11 +187,15 @@ const LandingPage: React.FC = () => {
                   p: 3, 
                   maxWidth: 400, 
                   width: '100%',
-                  background: 'rgba(255, 255, 255, 0.9)',
+                  background: 'rgba(255, 255, 255, 0.5)',
                   backdropFilter: 'blur(10px)'
                 }}
               >
-                <Typography variant="h6" sx={{ mb: 2, fontWeight: 600, textAlign: 'center' }}>
+                <Typography variant="h6" sx={{ 
+                  mb: 2, 
+                  color:'text.main',
+                  fontWeight: 600, 
+                  textAlign: 'center' }}>
                   Sample Tasks
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>

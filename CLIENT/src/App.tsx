@@ -11,14 +11,21 @@ import CompletedTasksPage from './pages/CompletedTasksPage';
 import TrashPage from './pages/TrashPage';
 import ProfilePage from './pages/ProfilePage';
 import './App.css';
+import { createTheme,ThemeProvider } from '@mui/material/styles'
 
-// Protected Route Component
+const theme = createTheme({
+  palette:{
+    mode:'dark',
+    primary:{
+      main: '#d6c8f0ff'
+    }
+  }
+})
+
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useAuth();
   return user ? <>{children}</> : <Navigate to="/login" replace />;
 };
-
-// Dashboard Layout Component
 const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <div className="dashboard-layout">
@@ -32,16 +39,15 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
 
 function App() {
   return (
+    <ThemeProvider theme={theme}>
     <AuthProvider>
       <Router>
         <div className="App">
           <Routes>
-            {/* Public Routes */}
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             
-            {/* Protected Routes */}
             <Route path="/tasks" element={
               <ProtectedRoute>
                 <DashboardLayout>
@@ -82,12 +88,12 @@ function App() {
               </ProtectedRoute>
             } />
             
-            {/* Redirect to tasks page if authenticated, otherwise to landing */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
       </Router>
     </AuthProvider>
+    </ThemeProvider>
   );
 }
 
