@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -33,6 +34,7 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
       <main className="main-content">
         {children}
       </main>
+      <Footer/>
     </div>
   );
 };
