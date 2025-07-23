@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Container,
   Typography,
@@ -12,10 +13,12 @@ import {
   Grid,
   IconButton,
   InputAdornment,
-  CircularProgress
+  CircularProgress,
+  Fab
 } from '@mui/material';
 import {
   Save,
+  Add,
   // Edit,
   // Delete,
    PhotoCamera,
@@ -33,6 +36,7 @@ const ProfilePage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const navigate = useNavigate();
   
   const [profileData, setProfileData] = useState({
     firstName: '',
@@ -466,6 +470,24 @@ const ProfilePage: React.FC = () => {
           </Paper>
         </Grid>
       </Grid>
+
+      <Fab
+              color="primary"
+              aria-label="add task"
+              sx={{
+                position: 'fixed',
+                bottom: 16,
+                right: 16,
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                '&:hover': {
+                  background: 'linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%)',
+                },
+              }}
+              onClick={() => navigate('/new-task')}
+            >
+              <Add />
+            </Fab>
+
     </Container>
   );
 };

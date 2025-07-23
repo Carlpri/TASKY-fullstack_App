@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import AddTaskOutlinedIcon from '@mui/icons-material/AddTaskOutlined';
 import {
   AppBar,
   Toolbar,
@@ -43,6 +44,7 @@ const Header: React.FC = () => {
       <AppBar position="sticky" sx={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
         <Container maxWidth="xl">
           <Toolbar>
+            
             <Typography variant="h6" component={Link} to="/" sx={{ 
               flexGrow: 1, 
               textDecoration: 'none', 
@@ -50,6 +52,7 @@ const Header: React.FC = () => {
               fontWeight: 700,
               fontSize: '1.5rem',
             }}>
+             
               Tasky
             </Typography>
             <Box sx={{ display: 'flex', gap: 1 }}>
@@ -91,14 +94,23 @@ const Header: React.FC = () => {
     <AppBar position="sticky" sx={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
       <Container maxWidth="xl">
         <Toolbar>
+           <AddTaskOutlinedIcon
+           sx={{
+            fontSize:"2.3rem",
+            fontWeight:'600',
+            marginLeft:'-10px'
+           }}
+           />
           <Typography variant="h6" component={Link} to="/tasks" sx={{ 
             flexGrow: 1, 
             textDecoration: 'none', 
             color: 'inherit',
             fontWeight: 550,
-            fontSize: '1.5rem',
+            fontSize: '1.8rem',
             fontFamily: "Lobster",
+            paddingLeft:"5px"
           }}>
+            
             Tasky
           </Typography>
           
@@ -166,12 +178,12 @@ const Header: React.FC = () => {
           </Box>
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Typography variant="body2" sx={{ 
+            <Typography variant="body1" sx={{ 
               color: 'rgba(255, 255, 255, 0.9)',
               display: { xs: 'none', sm: 'block' },
             fontFamily: "Lobster",
             }}>
-              Welcome back {user.firstName}😊
+              Welcome {user.firstName}😊
             </Typography>
             
             <IconButton

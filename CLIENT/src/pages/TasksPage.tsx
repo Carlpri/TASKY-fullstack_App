@@ -312,7 +312,6 @@ const TasksPage: React.FC = () => {
         </Grid>
       )}
 
-      {/* CREATING A TRASH BTN*/}
       <Fab
         color="primary"
         aria-label="add task"

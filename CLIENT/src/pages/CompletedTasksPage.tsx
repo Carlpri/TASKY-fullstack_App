@@ -15,10 +15,12 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions
+  DialogActions,
+  Fab
 } from '@mui/material';
 import {
   Edit,
+  Add,
   Delete,
   CheckCircle,
   AccessTime,
@@ -250,6 +252,24 @@ const CompletedTasksPage: React.FC = () => {
           </Button>
         </DialogActions>
       </Dialog>
+
+      <Fab
+              color="primary"
+              aria-label="add task"
+              sx={{
+                position: 'fixed',
+                bottom: 16,
+                right: 16,
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                '&:hover': {
+                  background: 'linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%)',
+                },
+              }}
+              onClick={() => navigate('/new-task')}
+            >
+              <Add />
+            </Fab>
+
     </Container>
   );
 };

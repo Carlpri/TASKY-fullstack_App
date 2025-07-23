@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Container,
+  Grid,
   Typography,
   Box,
   Card,
@@ -11,9 +13,11 @@ import {
   Chip,
   Alert,
   CircularProgress,
-  Paper
+  Paper,
+  Fab
 } from '@mui/material';
 import {
+  Add,
   RestoreFromTrash,
   Delete,
   AccessTime,
@@ -35,6 +39,7 @@ const TrashPage: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchDeletedTasks();
@@ -133,20 +138,41 @@ const TrashPage: React.FC = () => {
           </CardContent>
         </Card>
       ) : (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <Grid container spacing={3}
+        sx={{  
+        maxWidth: '100%',
+        justifyContent:'center',
+        display:'flex',
+        flexWrap:'wrap'
+          }}>
           {tasks.map((task) => (
-            <Card key={task.id} sx={{ 
+            <Grid 
+            item 
+            xs={12} 
+            sm={12} 
+            md={6} 
+            lg={6} 
+            key={task.id}
+            >
+            <Card sx={{  display:'flex',
+              flexDirection:'column',
               borderLeft: 4, 
-              borderColor: '#e53e3e',
-              opacity: 0.8,
-              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+              borderColor: '#667eea',
+              height: '100%',
+              transition: 'transform 0.3s ease, box-shadow 0.2s ease',
               '&:hover': {
                 transform: 'translateY(-2px)',
-                boxShadow: 3
-              }
+                boxShadow: 5
+              },
             }}>
               <CardContent>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
+                <Box 
+                sx={{ 
+                  display: 'flex', 
+                  justifyContent: 'space-between', 
+                  alignItems: 'flex-start', 
+                  mb: 2,
+                   }}>
                   <Box sx={{ flex: 1 }}>
                     <Typography variant="h6" sx={{ mb: 1, fontWeight: 600 }}>
                       {task.title}
@@ -197,9 +223,28 @@ const TrashPage: React.FC = () => {
                 </IconButton>
               </CardActions>
             </Card>
+            </Grid>
           ))}
-        </Box>
+        </Grid>
       )}
+
+      <Fab
+                    color="primary"
+                    aria-label="add task"
+                    sx={{
+                      position: 'fixed',
+                      bottom: 16,
+                      right: 16,
+                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                      '&:hover': {
+                        background: 'linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%)',
+                      },
+                    }}
+                    onClick={() => navigate('/new-task')}
+                  >
+                    <Add />
+                  </Fab>
+
     </Container>
   );
 };
