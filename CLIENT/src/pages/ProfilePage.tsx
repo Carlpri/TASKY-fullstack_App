@@ -189,10 +189,15 @@ const ProfilePage: React.FC = () => {
   return (
     <Container maxWidth="lg">
       <Box sx={{ mb: 4 }}>
-        <Typography variant="h4" component="h1" sx={{ mb: 1, fontWeight: 600 }}>
+        <Typography variant="h4" component="h1" 
+        sx={{ 
+          mb: 1, 
+          fontWeight: 550,
+          fontFamily: "Lobster",
+           }}>
           Profile Settings
         </Typography>
-        <Typography variant="body1" color="text.secondary">
+        <Typography variant="h6" color="text.main">
           Manage your account information and preferences
         </Typography>
       </Box>
@@ -210,7 +215,7 @@ const ProfilePage: React.FC = () => {
       )}
 
       <Grid container spacing={4}>
-        {/* Avatar */}
+       
         <Grid item xs={12} md={4}>
           <Paper elevation={3} sx={{ p: 3, textAlign: 'center' }}>
             <Box sx={{ position: 'relative', display: 'inline-block', mb: 2 }}>
@@ -267,7 +272,6 @@ const ProfilePage: React.FC = () => {
           </Paper>
         </Grid>
 
-        {/* Profile Information */}
         <Grid item xs={12} md={8}>
           <Paper elevation={3} sx={{ p: 3 }}>
             <Typography variant="h6" sx={{ mb: 3 }}>
@@ -350,10 +354,12 @@ const ProfilePage: React.FC = () => {
                   startIcon={<Save />}
                   disabled={loading}
                   sx={{
+                    color:'white',
                     background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                     '&:hover': {
                       background: 'linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%)',
                     },
+                    
                   }}
                 >
                   {loading ? 'Updating...' : 'Update Profile'}
@@ -364,7 +370,6 @@ const ProfilePage: React.FC = () => {
 
           <Divider sx={{ my: 4 }} />
 
-          {/* Changing user password */}
           <Paper elevation={3} sx={{ p: 3 }}>
             <Typography variant="h6" sx={{ mb: 3 }}>
               Change Password
@@ -447,6 +452,7 @@ const ProfilePage: React.FC = () => {
                   startIcon={<Save />}
                   disabled={loading}
                   sx={{
+                    color:'white',
                     background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                     '&:hover': {
                       background: 'linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%)',

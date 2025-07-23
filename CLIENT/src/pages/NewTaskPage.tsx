@@ -62,14 +62,25 @@ const NewTaskPage: React.FC = () => {
         <Button
           startIcon={<ArrowBack />}
           onClick={() => navigate('/tasks')}
-          sx={{ mb: 2 }}
+          sx={{ 
+            mb: 2,
+            color:'black',
+            fontWeight:'bold',
+            
+           }}
         >
           Back to Tasks
         </Button>
-        <Typography variant="h4" component="h1" sx={{ mb: 1, fontWeight: 600 }}>
+        <Typography variant="h4" component="h1" 
+        sx={{ 
+          mb: 1, 
+          fontWeight: 550,
+          fontFamily: "Lobster",
+           }}>
           Create your new Task
         </Typography>
-        <Typography variant="body1" color="text.secondary">
+        <Typography variant="h6" 
+        color="text.main">
           Add a new task to your list and stay organized
         </Typography>
       </Box>
@@ -91,7 +102,9 @@ const NewTaskPage: React.FC = () => {
             margin="normal"
             required
             placeholder="Enter a descriptive title for your task"
-            sx={{ mb: 3 }}
+            sx={{
+               mb: 3,
+               }}
           />
 
           <TextField
@@ -116,6 +129,7 @@ const NewTaskPage: React.FC = () => {
               startIcon={<Save />}
               disabled={loading}
               sx={{
+                color:'white',
                 background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                 '&:hover': {
                   background: 'linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%)',

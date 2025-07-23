@@ -48,7 +48,7 @@ const Header: React.FC = () => {
               textDecoration: 'none', 
               color: 'inherit',
               fontWeight: 700,
-              fontSize: '1.5rem'
+              fontSize: '1.5rem',
             }}>
               Tasky
             </Typography>
@@ -95,8 +95,9 @@ const Header: React.FC = () => {
             flexGrow: 1, 
             textDecoration: 'none', 
             color: 'inherit',
-            fontWeight: 700,
-            fontSize: '1.5rem'
+            fontWeight: 550,
+            fontSize: '1.5rem',
+            fontFamily: "Lobster",
           }}>
             Tasky
           </Typography>
@@ -167,29 +168,33 @@ const Header: React.FC = () => {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             <Typography variant="body2" sx={{ 
               color: 'rgba(255, 255, 255, 0.9)',
-              display: { xs: 'none', sm: 'block' }
+              display: { xs: 'none', sm: 'block' },
+            fontFamily: "Lobster",
             }}>
-              Welcome back, {user.firstName}😊
+              Welcome back {user.firstName}😊
             </Typography>
             
             <IconButton
               size="large"
               onClick={handleMenu}
               color="inherit"
+              sx={{
+                border:'whitesmoke'
+              }}
             >
               {user.avatar ? (
                 <Avatar 
                   src={user.avatar} 
                   alt={`${user.firstName} ${user.lastName}`}
-                  sx={{ width: 32, height: 32 }}
+                  sx={{ width: 35, height: 35 }}
                 />
               ) : (
                 <Avatar sx={{ 
                   width: 32, 
                   height: 32,
-                  bgcolor: 'rgba(255, 255, 255, 0.2)',
+                  bgcolor: 'rgba(255, 255, 255, 0.3)',
                   color: 'white',
-                  fontSize: '0.875rem',
+                  fontSize: '1rem',
                   fontWeight: 600
                 }}>
                   {getInitials(user.firstName, user.lastName)}

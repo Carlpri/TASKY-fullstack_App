@@ -91,10 +91,15 @@ const TrashPage: React.FC = () => {
   return (
     <Container maxWidth="lg">
       <Box sx={{ mb: 4 }}>
-        <Typography variant="h4" component="h1" sx={{ mb: 1, fontWeight: 600 }}>
+        <Typography variant="h4" component="h1" 
+        sx={{ 
+          mb: 1, 
+          fontWeight: 550,
+          fontFamily: "Lobster",
+           }}>
           Trash
         </Typography>
-        <Typography variant="body1" color="text.secondary">
+        <Typography variant="h6" color="text.main">
           Recover or permanently delete your removed tasks
         </Typography>
       </Box>
@@ -105,11 +110,13 @@ const TrashPage: React.FC = () => {
         </Alert>
       )}
 
-      {/* Warning Message for trashcan */}
       <Paper sx={{ p: 2, mb: 3, backgroundColor: '#fff3cd', border: '1px solid #ffeaa7' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <Warning sx={{ color: '#856404' }} />
-          <Typography variant="body2" sx={{ color: '#856404' }}>
+          <Warning sx={{ color: '#bd3f3fff' }} />
+          <Typography variant="body2" sx={{ 
+            color: '#685009ff',
+            fontWeight:'500'
+             }}>
             Items in trash will be deleted after 30 days
           </Typography>
         </Box>
@@ -120,11 +127,9 @@ const TrashPage: React.FC = () => {
           <CardContent>
             <RestoreFromTrash sx={{ fontSize: 64, color: 'text.secondary', mb: 2 }} />
             <Typography variant="h6" color="text.secondary" sx={{ mb: 1 }}>
-              Trash is empty
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
               There is no deleted tasks to recover
             </Typography>
+            <br />
           </CardContent>
         </Card>
       ) : (

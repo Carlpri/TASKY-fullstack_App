@@ -106,10 +106,15 @@ const CompletedTasksPage: React.FC = () => {
   return (
     <Container maxWidth="lg">
       <Box sx={{ mb: 4 }}>
-        <Typography variant="h4" component="h1" sx={{ mb: 1, fontWeight: 600 }}>
+        <Typography variant="h4" component="h1" 
+        sx={{ 
+          mb: 1, 
+          fontWeight: 550,
+          fontFamily: "Lobster",
+           }}>
           Completed Tasks
         </Typography>
-        <Typography variant="body1" color="text.secondary">
+        <Typography variant="h6" color="text.main">
           View and manage your completed tasks
         </Typography>
       </Box>
@@ -125,11 +130,9 @@ const CompletedTasksPage: React.FC = () => {
           <CardContent>
             <CheckCircle sx={{ fontSize: 64, color: 'text.secondary', mb: 2 }} />
             <Typography variant="h6" color="text.secondary" sx={{ mb: 1 }}>
-              No completed tasks yet
-            </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
               Complete some tasks to see them here
             </Typography>
+            <br />
             <Button
               variant="contained"
               onClick={() => navigate('/tasks')}

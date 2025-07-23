@@ -141,10 +141,18 @@ const TasksPage: React.FC = () => {
 
     <Container maxWidth="lg">
       <Box sx={{ mb: 4 }}>
-        <Typography variant="h4" component="h1" sx={{ mb: 1, fontWeight: 600 }}>
+        <Typography variant="h4" component="h1" 
+        sx={{ 
+          mb: 1, 
+          fontWeight: 550,
+          fontFamily: "Lobster",
+          letterSpacing:'2px', 
+           }}>
           My Tasks
         </Typography>
-        <Typography variant="body1" color="text.secondary">
+        <Typography variant="h6"
+         color="text.main"
+         >
           Manage your active tasks and stay organized
         </Typography>
       </Box>

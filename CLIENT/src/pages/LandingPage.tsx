@@ -90,7 +90,9 @@ const LandingPage: React.FC = () => {
                   background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                   backgroundClip: 'text',
                   WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent'
+                  WebkitTextFillColor: 'transparent',
+                  fontFamily: "Lobster",
+                  letterSpacing:"4px"
                 }}
               >
                 Welcome to{' '}
@@ -108,7 +110,7 @@ const LandingPage: React.FC = () => {
                 Create✍🏾, track 🛤️, and complete✔️ your tasks in TASKY.
               </Typography>
 
-              <Grid container spacing={2} sx={{ mb: 4 }}>
+              <Grid container spacing={2} sx={{ mb: 3 }}>
                 {features.map((feature, index) => (
                   <Grid item xs={12} sm={6} key={index}>
                     <Card 
@@ -126,10 +128,15 @@ const LandingPage: React.FC = () => {
                         <Box sx={{ mb: 1 }}>
                           {feature.icon}
                         </Box>
-                        <Typography variant="h6" sx={{ mb: 1, fontWeight: 600 }}>
+                        <Typography variant="h5" 
+                        sx={{ 
+                          mb: 1, 
+                          fontWeight: 550,
+                          fontFamily: "Lobster",
+                           }}>
                           {feature.title}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body1" color="text.secondary">
                           {feature.description}
                         </Typography>
                       </CardContent>
@@ -191,11 +198,13 @@ const LandingPage: React.FC = () => {
                   backdropFilter: 'blur(10px)'
                 }}
               >
-                <Typography variant="h6" sx={{ 
+                <Typography variant="h5" sx={{ 
                   mb: 2, 
-                  color:'text.main',
-                  fontWeight: 600, 
-                  textAlign: 'center' }}>
+                  color:'black',
+                  fontWeight: 550, 
+                  textAlign: 'center',
+                  fontFamily: "Lobster",
+                   }}>
                   Sample Tasks
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -214,7 +223,10 @@ const LandingPage: React.FC = () => {
                     >
                       <CardContent sx={{ py: 2, '&:last-child': { pb: 2 } }}>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-                          <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                          <Typography variant="subtitle1" 
+                          sx={{ 
+                            fontWeight: 600,
+                             }}>
                             {task.title}
                           </Typography>
                           <Box
