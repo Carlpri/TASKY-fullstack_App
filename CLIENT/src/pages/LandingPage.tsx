@@ -73,7 +73,7 @@ const LandingPage: React.FC = () => {
   return (
     <Box sx={{ 
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #bccbe2ff 0%, #6d91caff 100%)',
+      background: 'linear-gradient(135deg, #bccbe2ff 0%, #7551b8ff 100%)',
       py: 3
     }}>
       <Container maxWidth="lg">
@@ -82,10 +82,10 @@ const LandingPage: React.FC = () => {
           <Grid item xs={12} md={6}>
             <Box sx={{ textAlign: { xs: 'center', md: 'left' } }}>
               <Typography 
-                variant="h2" 
+                variant="h3" 
                 component="h1" 
                 sx={{ 
-                  fontWeight: 700,
+                  fontWeight: 600,
                   mb: 2,
                   background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                   backgroundClip: 'text',
@@ -95,9 +95,9 @@ const LandingPage: React.FC = () => {
                   letterSpacing:"4px"
                 }}
               >
-                Welcome to{' '}
+                Boost your{' '}
                 <Box component="span" sx={{ color: '#667eea' }}>
-                  Tasky 
+                  Productivity
                 </Box>
               </Typography>
               
@@ -145,7 +145,15 @@ const LandingPage: React.FC = () => {
                 ))}
               </Grid>
 
-              <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: { xs: 'center', md: 'flex-start' } }}>
+              <Box 
+              sx={{
+                display: 'flex', 
+                gap: 2, 
+                flexWrap: 'wrap', 
+                position: 'fixed',
+                top: 30,
+                right: 30,
+                justifyContent: { xs: 'center', md: 'flex-start' } }}>
                 <Button
                   component={Link}
                   to="/register"
@@ -162,7 +170,7 @@ const LandingPage: React.FC = () => {
                     py: 1.5
                   }}
                 >
-                  Get Started
+                  Start for free
                 </Button>
                 <Button
                   component={Link}
@@ -252,6 +260,53 @@ const LandingPage: React.FC = () => {
                 </Box>
               </Paper>
             </Box>
+          </Grid  >
+
+          <Grid item xs={12} md={6}  >
+            <Typography 
+                variant="h3" 
+                component="h1" 
+                sx={{ 
+                  fontWeight: 600,
+                  mb: 1,
+                  background: 'linear-gradient(135deg, #7726c9ff 0%,  #445fd4ff 100%)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  fontFamily: "Lobster",
+                  letterSpacing:"4px"
+                }}
+              >
+                Customer{' '}
+                <Box component="span" sx={{ color: '#5825b6ff' }}>
+                  Reviews
+                </Box>
+              </Typography>
+              <Typography 
+                variant="h6" 
+                color="text.main" 
+                sx={{ mb: 2, lineHeight: 1.6 }}
+              >
+                What are our customers saying about us?
+              </Typography>
+            <Card 
+                      sx={{
+                        height: '100%',
+                        textAlign: 'center',
+                        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                        '&:hover': {
+                          transform: 'translateY(-4px)',
+                          boxShadow: 3
+                        }
+                      }}
+            >
+              <CardContent>
+                <Typography>
+                      I have improved my productivity since I started using TASKY app to manage my tasks. Nearly I have been productive 75% more.
+                </Typography>
+              </CardContent>
+            </Card >
+            
           </Grid>
         </Grid>
       </Container>
