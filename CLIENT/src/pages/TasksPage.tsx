@@ -24,7 +24,7 @@ import {
   Delete,
   CheckCircle,
   Assignment,
-  AccessTime
+  AccessTime,
 } from '@mui/icons-material';
 import axios from 'axios';
 
@@ -36,6 +36,8 @@ interface Task {
   isDeleted: boolean;
   dateCreated: string;
   dateUpdated: string;
+  priority?: 'VERY_URGENT' | 'URGENT' | 'IMPORTANT';
+  deadline: string;
 }
 
 const TasksPage: React.FC = () => {
@@ -45,10 +47,17 @@ const TasksPage: React.FC = () => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
   const [taskToEdit, setTaskToEdit] = useState<Task | null>(null);
-  const [editedTitle, setEditedTitle] = useState<string>('');
-  const [editedDescription, setEditedDescription] = useState<string>('');
+  const [editedTitle, setEditedTitle] = useState('');
+  const [editedDescription, setEditedDescription] = useState('');
   const [editDialogOpen, setEditDialogOpen] = useState(false);
+
   const navigate = useNavigate();
+
+  const PRIORITY_OPTIONS = [
+    { value: 'VERY_URGENT', label: 'Very Urgent' },
+    { value: 'URGENT', label: 'Urgent' },
+    { value: 'IMPORTANT', label: 'Important' },
+  ];
 
   useEffect(() => {
     fetchTasks();
@@ -69,7 +78,7 @@ const TasksPage: React.FC = () => {
   const handleMarkComplete = async (taskId: string) => {
     try {
       await axios.patch(`/api/tasks/complete/${taskId}`);
-      setTasks(tasks.filter(task => task.id !== taskId));
+      setTasks((prev) => prev.filter((task) => task.id !== taskId));
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to mark task as complete');
     }
@@ -78,7 +87,7 @@ const TasksPage: React.FC = () => {
   const handleDelete = async (taskId: string) => {
     try {
       await axios.delete(`/api/tasks/${taskId}`);
-      setTasks(tasks.filter(task => task.id !== taskId));
+      setTasks((prev) => prev.filter((task) => task.id !== taskId));
       setDeleteDialogOpen(false);
       setTaskToDelete(null);
     } catch (err: any) {
@@ -86,16 +95,32 @@ const TasksPage: React.FC = () => {
     }
   };
 
-  const openDeleteDialog = (task: Task) => {
-    setTaskToDelete(task);
-    setDeleteDialogOpen(true);
+  const handleEdit = async () => {
+    if (!taskToEdit) return;
+    try {
+      await axios.patch(`/api/tasks/${taskToEdit.id}`, {
+        title: editedTitle,
+        description: editedDescription,
+      });
+      setTasks((prev) =>
+        prev.map((task) =>
+          task.id === taskToEdit.id
+            ? { ...task, title: editedTitle, description: editedDescription }
+            : task
+        )
+      );
+      setEditDialogOpen(false);
+      setTaskToEdit(null);
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'Failed to edit task');
+    }
   };
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
-      day: 'numeric'
+      day: 'numeric',
     });
   };
 
@@ -109,50 +134,13 @@ const TasksPage: React.FC = () => {
     );
   }
 
-  const handleEdit = async () => {
-  if (!taskToEdit) return;
-  try {
-    await axios.patch(`/api/tasks/${taskToEdit.id}`, {
-      title: editedTitle,
-      description: editedDescription,
-    });
-    setTasks((prev) =>
-      prev.map((task) =>
-        task.id === taskToEdit.id
-          ? { ...task, title: editedTitle, description: editedDescription }
-          : task
-      )
-    );
-    setEditDialogOpen(false);
-    setTaskToEdit(null);
-  } catch (err: any) {
-    setError(err.response?.data?.message || 'Failed to edit task');
-  }
-};
-
-
-
-
-
-
   return (
-
-    
-
     <Container maxWidth="lg">
       <Box sx={{ mb: 4 }}>
-        <Typography variant="h4" component="h1" 
-        sx={{ 
-          mb: 1, 
-          fontWeight: 550,
-          fontFamily: "Lobster",
-          letterSpacing:'2px', 
-           }}>
+        <Typography variant="h4" sx={{ mb: 1, fontWeight: 550, fontFamily: 'Lobster', letterSpacing: '2px' }}>
           My Tasks
         </Typography>
-        <Typography variant="h6"
-         color="text.main"
-         >
+        <Typography variant="h6" color="text.main">
           Manage your active tasks and stay organized
         </Typography>
       </Box>
@@ -189,126 +177,108 @@ const TasksPage: React.FC = () => {
           </CardContent>
         </Card>
       ) : (
-        <Grid container spacing={3} 
-        sx={{ 
-        maxWidth: '100%',
-        justifyContent:'center',
-        display:'flex',
-        flexWrap:'wrap'
+        <Grid container spacing={3} sx={{ justifyContent: 'center', flexWrap: 'wrap' }}>
+          {tasks.map((task) => {
+            const formattedDeadline = new Date(task.deadline).toLocaleDateString('en-GB', {
+              day: '2-digit',
+              month: 'short',
+              year: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit',
+            });
 
-        }}>
-          {tasks.map((task) => (
-            <Grid 
-            item 
-            xs={12} 
-            sm={12} 
-            md={6} 
-            lg={6} 
-            key={task.id}>
-            <Card  sx={{ 
-              display:'flex',
-              flexDirection:'column',
-              borderLeft: 4, 
-              borderColor: '#667eea',
-              height: '100%',
-              transition: 'transform 0.3s ease, box-shadow 0.2s ease',
-              '&:hover': {
-                transform: 'translateY(-2px)',
-                boxShadow: 5
-              },              
-            }}>
-              <CardContent>
-                <Box sx={{ 
-                  display: 'flex', 
-                  justifyContent: 'space-between', 
-                  alignItems: 'flex-start',
-                   mb: 2 }}>
-                  <Box sx={{ flex: 1 }}>
-                    <Typography variant="h6" sx={{ mb: 1, fontWeight: 600 }}>
-                      {task.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                      {task.description}
-                    </Typography>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                      <Box sx={{ 
-                        display: 'flex',
-                        flexDirection:'column',
-                        alignItems: 'center',
-                        gap: 0.5,
-                         }}>
-                        
-                        <Typography variant="caption" color="text.secondary"
-                        sx={{alignText:'center',}}
-                        >
-                          <AccessTime sx={{ 
-                          fontSize: 16, 
-                          color:'white'
-                           }} /> 
-                           <br />
-                          <b>Created:</b> <i>{formatDate(task.dateCreated)}</i>
-                        </Typography>
-                        <Typography variant="caption" color="red"
-                        sx={{alignText:'center'}}
-                        >
-                          
-                          <b>Deadline:</b> <i>{formatDate(task.dateCreated)}</i>
-                        </Typography>
-                      </Box>
-                      <Chip 
-                        label="Active" 
-                        size="small" 
-                        color="primary" 
-                        variant="outlined"
-                      />
-                    </Box>
-                  </Box>
-                </Box>
-              </CardContent>
-              <CardActions sx={{ 
-                gap: 1,
-                mt:'auto',
-                paddingBottom: 2,
-                paddingX: 2,
-                justifyContent: 'flex-start'
-                 }}>
-                <Button
-                  size="small"
-                  startIcon={<CheckCircle />}
-                  onClick={() => handleMarkComplete(task.id)}
-                  sx={{ color: '#48bb78',
-                    fontWeight:"600",
-                    textAlign:"left"
-                   }}
-                >
-                  Mark Complete
-                </Button>
-                <Button
-                  size="small"
-                  startIcon={<Edit />}
-                  onClick={() =>{
-                    setTaskToEdit(task);
-                    setEditedTitle(task.title);
-                    setEditedDescription(task.description)
-                    setEditDialogOpen(true);
+            return (
+              <Grid item xs={12} sm={12} md={6} lg={6} key={task.id}>
+                <Card
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    borderLeft: 4,
+                    borderColor: '#667eea',
+                    height: '100%',
+                    transition: 'transform 0.3s ease, box-shadow 0.2s ease',
+                    '&:hover': {
+                      transform: 'translateY(-2px)',
+                      boxShadow: 5,
+                    },
                   }}
-                  
                 >
-                  Edit
-                </Button>
-                <IconButton
-                  size="small"
-                  onClick={() => openDeleteDialog(task)}
-                  sx={{ color: '#e53e3e' }}
-                >
-                  <Delete />
-                </IconButton>
-
-                                 
-              </CardActions>
-            </Card>
-          </Grid>
-          ))}
+                  <CardContent>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
+                      <Box sx={{ flex: 1, position: 'relative' }}>
+                        <Typography variant="h6" sx={{ mb: 1, fontWeight: 600 }}>
+                          {task.title}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                          {task.description}
+                        </Typography>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0.5 }}>
+                            <Typography variant="caption" color="text.secondary">
+                              <AccessTime sx={{ fontSize: 16 }} /> <br />
+                              <b>Created:</b> <i>{formatDate(task.dateCreated)}</i>
+                            </Typography>
+                            <Typography variant="body2" color="error">
+                              Deadline: {formattedDeadline}
+                            </Typography>
+                          </Box>
+                          <Chip label="Active" size="small" color="primary" variant="outlined" />
+                        </Box>
+                        <Chip
+                          label={
+                            PRIORITY_OPTIONS.find((p) => p.value === task.priority)?.label || 'N/A'
+                          }
+                          sx={{
+                            position: 'absolute',
+                            right: '10px',
+                            top: '0px',
+                            fontSize: '1rem',
+                          }}
+                          color="secondary"
+                        />
+                      </Box>
+                    </Box>
+                  </CardContent>
+                  <CardActions
+                    sx={{
+                      gap: 1,
+                      mt: 'auto',
+                      paddingBottom: 2,
+                      paddingX: 2,
+                      justifyContent: 'flex-start',
+                    }}
+                  >
+                    <Button
+                      size="small"
+                      startIcon={<CheckCircle />}
+                      onClick={() => handleMarkComplete(task.id)}
+                      sx={{ color: '#48bb78', fontWeight: '600' }}
+                    >
+                      Mark Complete
+                    </Button>
+                    <Button
+                      size="small"
+                      startIcon={<Edit />}
+                      onClick={() => {
+                        setTaskToEdit(task);
+                        setEditedTitle(task.title);
+                        setEditedDescription(task.description);
+                        setEditDialogOpen(true);
+                      }}
+                    >
+                      Edit
+                    </Button>
+                    <IconButton size="small" onClick={() => {
+                      setTaskToDelete(task);
+                      setDeleteDialogOpen(true);
+                    }} sx={{ color: '#e53e3e' }}>
+                      <Delete />
+                    </IconButton>
+                  </CardActions>
+                </Card>
+              </Grid>
+            );
+          })}
         </Grid>
       )}
 
@@ -329,26 +299,24 @@ const TasksPage: React.FC = () => {
         <Add />
       </Fab>
 
+      <EditTaskDialog
+        open={editDialogOpen}
+        title={editedTitle}
+        description={editedDescription}
+        onTitleChange={setEditedTitle}
+        onDescriptionChange={setEditedDescription}
+        onClose={() => setEditDialogOpen(false)}
+        onSave={handleEdit}
+      />
 
-  <EditTaskDialog
-  open={editDialogOpen}
-  title={editedTitle}
-  description={editedDescription}
-  onTitleChange={setEditedTitle}
-  onDescriptionChange={setEditedDescription}
-  onClose={() => setEditDialogOpen(false)}
-  onSave={handleEdit}
-/>
-
-<DeleteTaskDialog
-  open={deleteDialogOpen}
-  taskTitle={taskToDelete?.title || ''}
-  onClose={() => setDeleteDialogOpen(false)}
-  onDelete={() => taskToDelete && handleDelete(taskToDelete.id)}
-/>
-
+      <DeleteTaskDialog
+        open={deleteDialogOpen}
+        taskTitle={taskToDelete?.title || ''}
+        onClose={() => setDeleteDialogOpen(false)}
+        onDelete={() => taskToDelete && handleDelete(taskToDelete.id)}
+      />
     </Container>
   );
 };
 
-export default TasksPage; 
+export default TasksPage;
