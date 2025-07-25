@@ -24,7 +24,6 @@ import {
   Delete,
   CheckCircle,
   Assignment,
-  AccessTime,
 } from '@mui/icons-material';
 import axios from 'axios';
 
@@ -37,7 +36,7 @@ interface Task {
   dateCreated: string;
   dateUpdated: string;
   priority?: 'VERY_URGENT' | 'URGENT' | 'IMPORTANT';
-  deadline: string;
+  deadline: Date | string;
 }
 
 const TasksPage: React.FC = () => {
@@ -50,6 +49,8 @@ const TasksPage: React.FC = () => {
   const [editedTitle, setEditedTitle] = useState('');
   const [editedDescription, setEditedDescription] = useState('');
   const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [editDeadline, setEditDeadline] = useState<Date | null>(null);
+const [editPriority, setEditPriority] = useState('');
 
   const navigate = useNavigate();
 
@@ -212,13 +213,37 @@ const TasksPage: React.FC = () => {
                         <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                           {task.description}
                         </Typography>
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0.5 }}>
-                            <Typography variant="caption" color="text.secondary">
-                              <AccessTime sx={{ fontSize: 16 }} /> <br />
-                              <b>Created:</b> <i>{formatDate(task.dateCreated)}</i>
+                        <Box 
+                        sx={{ 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          gap: 2,
+                          }}>
+                          <Box 
+                          sx={{ 
+                            display: 'flex', 
+                            flexDirection: 'column',
+                            gap: 0.4,
+                            mt:'10px'
+                             }}>
+                            <Typography variant="body2" color="white"
+                            sx={{
+                              fontWeight:'500',
+                            }} >
+                              {/* <AccessTime 
+                              sx={{ 
+                                fontSize: 30,
+                                paddingRight:'7px',
+                                color:"secondary"
+                                }} />  */}
+                              <b>Created:</b> {formatDate(task.dateCreated)}
                             </Typography>
-                            <Typography variant="body2" color="error">
+                            <Typography variant="body2" color="error"
+                            sx={{
+                              fontWeight:'700',
+
+                            }}
+                            >
                               Deadline: {formattedDeadline}
                             </Typography>
                           </Box>
@@ -303,8 +328,12 @@ const TasksPage: React.FC = () => {
         open={editDialogOpen}
         title={editedTitle}
         description={editedDescription}
+        priority={editPriority}
+        deadline={editDeadline}
         onTitleChange={setEditedTitle}
         onDescriptionChange={setEditedDescription}
+        onPriorityChange={setEditPriority}
+        onDeadlineChange={setEditDeadline}
         onClose={() => setEditDialogOpen(false)}
         onSave={handleEdit}
       />
