@@ -5,21 +5,32 @@ import authRoutes from './routes/auth';
 import taskRoutes from './routes/tasks';
 import userRoutes from './routes/user';
 import { errorHandler } from './middleware/errorHandler';
+import cookieParser from "cookie-parser";
+
+
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const allowedOrigins = [
-  "http://localhost:3000",  // for local dev
-  "https://tasky-fullstack-app.vercel.app"  // your Vercel frontend
+
+  const allowedOrigins = [
+  "http://localhost:3000",
+  "https://tasky-fullstack-app.vercel.app"
 ];
 
 
+app.use(cookieParser());
 app.use(cors({
-  origin: process.env.CLIENT_URL  ,
-  credentials: true
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
 }));
 
 
