@@ -11,9 +11,14 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+const allowedOrigins = [
+  "http://localhost:3000",  // for local dev
+  "https://tasky-fullstack-app.vercel.app"  // your Vercel frontend
+];
+
 
 app.use(cors({
-  origin: process.env.CLIENT_URL ,
+  origin: process.env.CLIENT_URL  ,
   credentials: true
 }));
 
