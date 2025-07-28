@@ -65,6 +65,8 @@ const NewTaskPage: React.FC = () => {
       await axios.post(`${API_URL}/tasks`, {
         ...formData,
         deadline: formData.deadline ? formData.deadline.toISOString() : undefined
+      }, {
+         withCredentials: true
       });
       setSuccess(true);
       setFormData({ title: '', description: '', priority: 'IMPORTANT', deadline: null });
