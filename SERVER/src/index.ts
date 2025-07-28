@@ -28,7 +28,7 @@ app.use('/api/user', userRoutes);
 app.use(errorHandler);
 
 app.use((req, res) => {
-  res.status(404).json({ message: 'Route not found' });
+  res.status(404).json({ message: 'Welcome to the tasky api' });
 });
 
 app.listen(PORT, () => {
