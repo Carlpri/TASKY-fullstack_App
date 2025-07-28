@@ -102,7 +102,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const register = async (userData: RegisterData) => {
     try {
-      await axios.post("/api/auth/register", userData);
+      await axios.post("https://tasky-fullstack-app.onrender.com/api/auth/register", userData);
     } catch (error: any) {
       throw new Error(error.response?.data?.message || "Registration failed");
     }
