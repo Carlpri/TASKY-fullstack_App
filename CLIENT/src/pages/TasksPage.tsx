@@ -226,7 +226,7 @@ const TasksPage: React.FC = () => {
         </Select>
       </FormControl>
 
-      {tasks.length === 0 ? (
+      {!tasks || tasks.length === 0 ? (
         <Card sx={{ textAlign: "center", py: 6 }}>
           <CardContent>
             <Assignment sx={{ fontSize: 64, color: "text.secondary", mb: 2 }} />
