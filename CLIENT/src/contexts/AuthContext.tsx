@@ -72,7 +72,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const checkAuth = async () => {
       if (token) {
         try {
-          const response = await axios.get(`${API_URL}/user`);
+          const response = await axios.get(`${API_URL}/user`,{withCredentials:true});
           setUser(response.data.user);
         } catch (error) {
           console.error("Auth check failed:", error);
@@ -91,6 +91,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const response = await axios.post(`${API_URL}/auth/login`, {
         identifier,
         password,
+        withCredentials:true
       });
 
       const { token: newToken, user: userData } = response.data;

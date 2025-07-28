@@ -22,6 +22,7 @@ const PORT = process.env.PORT || 5000;
 
 
 app.use(cookieParser());
+
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {

@@ -115,20 +115,26 @@ router.post('/login', [
       { expiresIn: '7d' }
     );
 
-    res.json({
-      message: 'Login successful',
-      token,
-      user: {
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        username: user.username,
-        emailAddress: user.emailAddress,
-        avatar: user.avatar,
-        dateJoined: user.dateJoined
-      }
-    });
-  } catch (error) {
+    res
+  .cookie('token', token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production', // only send over HTTPS in production
+    sameSite: 'lax', // or 'none' if using cross-site requests with HTTPS
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  })
+  .json({
+    message: 'Login successful',
+    user: {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      username: user.username,
+      emailAddress: user.emailAddress,
+      avatar: user.avatar,
+      dateJoined: user.dateJoined
+    }
+  })
+} catch (error) {
     console.error('Login error:', error);
     res.status(500).json({ message: 'Login failed' });
   }
@@ -178,6 +184,11 @@ router.patch('/password', authenticateToken, [
 });
 
 router.post('/logout', authenticateToken, (req, res) => {
+  res.clearCookie('token', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax'
+  });
   res.json({ message: 'Logged out successfully' });
 });
 
