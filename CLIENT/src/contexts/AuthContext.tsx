@@ -6,6 +6,8 @@ import React, {
   ReactNode,
 } from "react";
 import axios from "axios";
+const API_URL = process.env.REACT_APP_API_URL;
+
 
 interface User {
   id: string;
@@ -69,7 +71,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const checkAuth = async () => {
       if (token) {
         try {
-          const response = await axios.get("/api/user");
+          const response = await axios.get(`${API_URL}/user`);
           setUser(response.data.user);
         } catch (error) {
           console.error("Auth check failed:", error);
@@ -85,7 +87,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (identifier: string, password: string) => {
     try {
-      const response = await axios.post("/api/auth/login", {
+      const response = await axios.post(`${API_URL}/auth/login`, {
         identifier,
         password,
       });
@@ -102,7 +104,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const register = async (userData: RegisterData) => {
     try {
-      await axios.post("https://tasky-fullstack-app.onrender.com/api/auth/register", userData);
+      await axios.post(`${API_URL}/auth/register`, userData);
     } catch (error: any) {
       throw new Error(error.response?.data?.message || "Registration failed");
     }
