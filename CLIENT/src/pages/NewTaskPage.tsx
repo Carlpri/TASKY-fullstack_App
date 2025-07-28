@@ -20,6 +20,8 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
+
+const API_URL = process.env.REACT_APP_API_URL;
 const PRIORITY_OPTIONS = [
   { value: 'VERY_URGENT', label: 'Very Urgent' },
   { value: 'URGENT', label: 'Urgent' },
@@ -60,7 +62,7 @@ const NewTaskPage: React.FC = () => {
     setLoading(true);
     setError('');
     try {
-      await axios.post('/api/tasks', {
+      await axios.post(`${API_URL}/api/tasks`, {
         ...formData,
         deadline: formData.deadline ? formData.deadline.toISOString() : undefined
       });

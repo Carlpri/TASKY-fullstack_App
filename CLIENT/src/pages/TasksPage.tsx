@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import EditTaskDialog from "../components/EditTaskDialog";
 import DeleteTaskDialog from "../components/DeleteTaskDialog";
 
+
 import {
   Container,
   Typography,
@@ -42,6 +43,7 @@ interface Task {
   priority?: "VERY_URGENT" | "URGENT" | "IMPORTANT";
   deadline: Date | string;
 }
+const API_URL = process.env.REACT_APP_API_URL;
 
 const TasksPage: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -108,7 +110,7 @@ const TasksPage: React.FC = () => {
   const handleEdit = async () => {
     if (!taskToEdit) return;
     try {
-      await axios.patch(`/api/tasks/${taskToEdit.id}`, {
+      await axios.patch(`${API_URL}/api/tasks/${taskToEdit.id}`, {
         title: editedTitle,
         description: editedDescription,
       });

@@ -6,7 +6,6 @@ import { authenticateToken } from "../middleware/auth";
 const router = Router();
 
 router.use(authenticateToken);
-// Create a new task
 router.post('/', [
   body('title').trim().notEmpty().withMessage('Title is required'),
   body('description').trim().notEmpty().withMessage('Description is required'),
