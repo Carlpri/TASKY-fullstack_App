@@ -17,6 +17,10 @@ import {
   Alert,
   CircularProgress,
   Fab,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
 } from "@mui/material";
 import {
   Add,
@@ -51,6 +55,9 @@ const TasksPage: React.FC = () => {
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [editDeadline, setEditDeadline] = useState<Date | null>(null);
   const [editPriority, setEditPriority] = useState("");
+  const [sortOption, setSortOption] = useState<
+    "priority" | "deadline" | "created"
+  >("created");
 
   const navigate = useNavigate();
 
@@ -144,6 +151,28 @@ const TasksPage: React.FC = () => {
     );
   }
 
+  const getSortedTasks = () => {
+    const priorityOrder = {
+      VERY_URGENT: 1,
+      URGENT: 2,
+      IMPORTANT: 3,
+      undefined: 4,
+    };
+
+    return [...tasks].sort((a, b) => {
+      if (sortOption === "priority") {
+        return priorityOrder[a.priority!] - priorityOrder[b.priority!];
+      } else if (sortOption === "deadline") {
+        return new Date(a.deadline).getTime() - new Date(b.deadline).getTime();
+      } else if (sortOption === "created") {
+        return (
+          new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()
+        );
+      }
+      return 0;
+    });
+  };
+
   return (
     <Container maxWidth="lg">
       <Box sx={{ mb: 4 }}>
@@ -168,6 +197,34 @@ const TasksPage: React.FC = () => {
           {error}
         </Alert>
       )}
+
+      <FormControl 
+      sx={{ 
+        minWidth: 200, 
+        mb: 3,
+        }} size="small">
+        <InputLabel id="sort-label"sx={{
+            fontFamily: "Lobster",
+             color:"#48048bff"
+          }}>Sort by</InputLabel>
+        <Select
+          labelId="sort-label"
+          value={sortOption}
+          label="Sort by"
+          sx={{
+             color:"#48048bff",
+            fontSize:"2 rem",
+          }}
+         
+          onChange={(e) =>
+            setSortOption(e.target.value as "priority" | "deadline" | "created")
+          }
+        >
+          <MenuItem value="created">Date Created</MenuItem>
+          <MenuItem value="deadline">Deadline</MenuItem>
+          <MenuItem value="priority">Priority</MenuItem>
+        </Select>
+      </FormControl>
 
       {tasks.length === 0 ? (
         <Card sx={{ textAlign: "center", py: 6 }}>
@@ -201,7 +258,7 @@ const TasksPage: React.FC = () => {
           spacing={3}
           sx={{ justifyContent: "center", flexWrap: "wrap" }}
         >
-          {tasks.map((task) => {
+          {getSortedTasks().map((task) => {
             const formattedDeadline = new Date(
               task.deadline
             ).toLocaleDateString("en-GB", {
