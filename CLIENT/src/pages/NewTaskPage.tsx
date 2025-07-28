@@ -62,7 +62,7 @@ const NewTaskPage: React.FC = () => {
     setLoading(true);
     setError('');
     try {
-      await axios.post(`${API_URL}/api/tasks`, {
+      await axios.post(`${API_URL}/tasks`, {
         ...formData,
         deadline: formData.deadline ? formData.deadline.toISOString() : undefined
       });
