@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Dialog,
   DialogTitle,
@@ -10,12 +10,11 @@ import {
   Select,
   InputLabel,
   FormControl,
-  TextField
-} from '@mui/material';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-
+  TextField,
+} from "@mui/material";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 interface EditTaskDialogProps {
   open: boolean;
@@ -42,25 +41,27 @@ const EditTaskDialog: React.FC<EditTaskDialogProps> = ({
   onDeadlineChange,
   onPriorityChange,
   onClose,
-  onSave
+  onSave,
 }) => {
   return (
-    <Dialog open={open} onClose={onClose}
+    <Dialog
+      open={open}
+      onClose={onClose}
       sx={{
-        backdropFilter: 'blur(5px)',
-        backgroundColor: 'rgba(255, 255, 255, 0.1)'
+        backdropFilter: "blur(5px)",
+        backgroundColor: "rgba(255, 255, 255, 0.1)",
       }}
     >
       <DialogTitle>Edit Task</DialogTitle>
       <DialogContent
         sx={{
-          backgroundColor: '#f0f0f0',
-          padding: '16px',
-          borderRadius: '8px',
-          background: 'linear-gradient(135deg, #516de7ff, #9763ccff)',
-          color: '#fff',
-          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.4)',
-          margin: '1px 16px',
+          backgroundColor: "#f0f0f0",
+          padding: "16px",
+          borderRadius: "8px",
+          background: "linear-gradient(135deg, #516de7ff, #9763ccff)",
+          color: "#fff",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.4)",
+          margin: "1px 16px",
         }}
       >
         <Box component="form" sx={{ mt: 2 }}>
@@ -70,14 +71,14 @@ const EditTaskDialog: React.FC<EditTaskDialogProps> = ({
             onChange={(e) => onTitleChange(e.target.value)}
             placeholder="Title"
             style={{
-              width: '100%',
-              marginBottom: '1rem',
-              padding: '0.5rem',
-              borderRadius: '4px',
-              borderTop: '1px solid #ccc',
-              borderLeft: '1px solid #ccc',
-              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
-              transition: 'border-color 0.3s ease',
+              width: "100%",
+              marginBottom: "1rem",
+              padding: "0.5rem",
+              borderRadius: "4px",
+              borderTop: "1px solid #ccc",
+              borderLeft: "1px solid #ccc",
+              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
+              transition: "border-color 0.3s ease",
             }}
           />
 
@@ -87,45 +88,52 @@ const EditTaskDialog: React.FC<EditTaskDialogProps> = ({
             placeholder="Description"
             rows={4}
             style={{
-              width: '100%',
-              marginBottom: '.7rem',
-              height: '100px',
-              padding: '0.5rem',
-              borderRadius: '4px',
-              borderTop: '1px solid #ccc',
-              borderLeft: '1px solid #ccc',
-              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
-              transition: 'border-color 0.3s ease',
+              width: "100%",
+              marginBottom: ".7rem",
+              height: "100px",
+              padding: "0.5rem",
+              borderRadius: "4px",
+              borderTop: "1px solid #ccc",
+              borderLeft: "1px solid #ccc",
+              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
+              transition: "border-color 0.3s ease",
             }}
           />
 
-          
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DateTimePicker
-                          label="Deadline"
-                          value={deadline}
-                          onChange={(newValue)=> onDeadlineChange(newValue)}
-                          ampm={false} 
-                          minDate={new Date()}
-                          renderInput={(params)=>(
-                            <TextField {...params} fullWidth sx={{ mb:3, backgroundColor:'rgba(158, 151, 151, 0.1)', borderRadius:'4px'}}/>
-                          )}                       
-             />
-              </LocalizationProvider>
-          
-           
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DateTimePicker
+              label="Deadline"
+              value={deadline}
+              onChange={(newValue) => onDeadlineChange(newValue)}
+              ampm={false}
+              minDate={new Date()}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  fullWidth
+                  sx={{
+                    mb: 3,
+                    backgroundColor: "rgba(158, 151, 151, 0.1)",
+                    borderRadius: "4px",
+                  }}
+                />
+              )}
+            />
+          </LocalizationProvider>
 
-          <FormControl fullWidth sx={{ marginBottom: '1rem' }}>
-            <InputLabel id="priority-label" sx={{ color: '#7209dbff' }}>Priority</InputLabel>
+          <FormControl fullWidth sx={{ marginBottom: "1rem" }}>
+            <InputLabel id="priority-label" sx={{ color: "#7209dbff" }}>
+              Priority
+            </InputLabel>
             <Select
               labelId="priority-label"
               value={priority}
               onChange={(e) => onPriorityChange(e.target.value)}
               sx={{
-                backgroundColor: '#fff',
-                borderRadius: '4px',
-                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
-                color:'black'
+                backgroundColor: "#fff",
+                borderRadius: "4px",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
+                color: "black",
               }}
             >
               <MenuItem value="IMPORTANT">Important</MenuItem>
@@ -138,9 +146,9 @@ const EditTaskDialog: React.FC<EditTaskDialogProps> = ({
 
       <DialogActions
         sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          padding: '16px 24px'
+          display: "flex",
+          justifyContent: "space-between",
+          padding: "16px 24px",
         }}
       >
         <Button onClick={onClose}>Cancel</Button>
