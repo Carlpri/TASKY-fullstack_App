@@ -89,7 +89,7 @@ const TasksPage: React.FC = () => {
 
   const handleMarkComplete = async (taskId: string) => {
     try {
-      await axios.patch(`/api/tasks/complete/${taskId}`);
+      await axios.patch(`${API_URL}/tasks/complete/${taskId}`);
       setTasks((prev) => prev.filter((task) => task.id !== taskId));
     } catch (err: any) {
       setError(
@@ -100,7 +100,7 @@ const TasksPage: React.FC = () => {
 
   const handleDelete = async (taskId: string) => {
     try {
-      await axios.delete(`/api/tasks/${taskId}`);
+      await axios.delete(`${API_URL}/tasks/${taskId}`);
       setTasks((prev) => prev.filter((task) => task.id !== taskId));
       setDeleteDialogOpen(false);
       setTaskToDelete(null);
@@ -112,7 +112,7 @@ const TasksPage: React.FC = () => {
   const handleEdit = async () => {
     if (!taskToEdit) return;
     try {
-      await axios.patch(`${API_URL}/api/tasks/${taskToEdit.id}`, {
+      await axios.patch(`${API_URL}/tasks/${taskToEdit.id}`, {
         title: editedTitle,
         description: editedDescription,
       });

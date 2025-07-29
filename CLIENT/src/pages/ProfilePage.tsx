@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+ 
 import {
   Container,
   Typography,
@@ -19,8 +20,6 @@ import {
 import {
   Save,
   Add,
-  // Edit,
-  // Delete,
    PhotoCamera,
   Visibility,
   VisibilityOff,
@@ -56,7 +55,7 @@ const ProfilePage: React.FC = () => {
     new: false,
     confirm: false
   });
-
+const API_URL = process.env.REACT_APP_API_URL;
   useEffect(() => {
     if (user) {
       setProfileData({
@@ -89,7 +88,7 @@ const ProfilePage: React.FC = () => {
     setSuccess('');
 
     try {
-      const response = await axios.patch('/api/user', profileData);
+      const response = await axios.patch(`${API_URL}/user`, profileData);
       updateUser(response.data.user);
       setSuccess('Profile updated successfully!');
     } catch (err: any) {
@@ -117,7 +116,7 @@ const ProfilePage: React.FC = () => {
     setSuccess('');
 
     try {
-      await axios.patch('/api/auth/password', {
+      await axios.patch(`${API_URL}/auth/password`, {
         currentPassword: passwordData.currentPassword,
         newPassword: passwordData.newPassword
       });
@@ -146,7 +145,7 @@ const ProfilePage: React.FC = () => {
     setSuccess('');
 
     try {
-      const response = await axios.post('/api/user/avatar', formData, {
+      const response = await axios.post(`${API_URL}/user/avatar`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -166,7 +165,7 @@ const ProfilePage: React.FC = () => {
     setSuccess('');
 
     try {
-      const response = await axios.delete('/api/user/avatar');
+      const response = await axios.delete(`${API_URL}/user/avatar`);
       updateUser(response.data.user);
       setSuccess('Avatar removed successfully!');
     } catch (err: any) {
