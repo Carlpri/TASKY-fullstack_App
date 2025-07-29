@@ -40,15 +40,15 @@ const TrashPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+const API_URL = process.env.REACT_APP_API_URL;
+
 
   useEffect(() => {
-    fetchDeletedTasks();
-  }, []);
 
   const fetchDeletedTasks = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('/api/tasks?status=deleted');
+      const response = await axios.get(`${API_URL}/tasks?status=deleted`);
       setTasks(response.data.tasks);
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to fetch deleted tasks');
@@ -56,10 +56,13 @@ const TrashPage: React.FC = () => {
       setLoading(false);
     }
   };
+  
+    fetchDeletedTasks();
+  }, [API_URL]);
 
   const handleRestore = async (taskId: string) => {
     try {
-      await axios.patch(`/api/tasks/restore/${taskId}`);
+      await axios.patch(`${API_URL}/tasks/restore/${taskId}`);
       setTasks(tasks.filter(task => task.id !== taskId));
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to restore task');
@@ -68,7 +71,7 @@ const TrashPage: React.FC = () => {
 
   const handlePermanentDelete = async (taskId: string) => {
     try {
-      await axios.delete(`/api/tasks/${taskId}`);
+      await axios.delete(`${API_URL}/tasks/${taskId}`);
       setTasks(tasks.filter(task => task.id !== taskId));
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to permanently delete task');
