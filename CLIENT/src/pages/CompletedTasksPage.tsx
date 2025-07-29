@@ -45,15 +45,13 @@ const CompletedTasksPage: React.FC = () => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
   const navigate = useNavigate();
+  const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
-    fetchCompletedTasks();
-  }, []);
-
   const fetchCompletedTasks = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('/api/tasks?status=completed');
+      const response = await axios.get(`${API_URL}/tasks?status=completed`);
       setTasks(response.data.tasks);
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to fetch completed tasks');
@@ -62,9 +60,12 @@ const CompletedTasksPage: React.FC = () => {
     }
   };
 
+  fetchCompletedTasks();
+  }, [API_URL]);
+
   const handleMarkIncomplete = async (taskId: string) => {
     try {
-      await axios.patch(`/api/tasks/incomplete/${taskId}`);
+      await axios.patch(`${API_URL}/tasks/incomplete/${taskId}`);
       setTasks(tasks.filter(task => task.id !== taskId));
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to mark task as incomplete');
@@ -73,7 +74,7 @@ const CompletedTasksPage: React.FC = () => {
 
   const handleDelete = async (taskId: string) => {
     try {
-      await axios.delete(`/api/tasks/${taskId}`);
+      await axios.delete(`${API_URL}/tasks/${taskId}`);
       setTasks(tasks.filter(task => task.id !== taskId));
       setDeleteDialogOpen(false);
       setTaskToDelete(null);
