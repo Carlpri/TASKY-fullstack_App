@@ -112,14 +112,21 @@ const TasksPage: React.FC = () => {
   const handleEdit = async () => {
     if (!taskToEdit) return;
     try {
-      await axios.patch(`${API_URL}/tasks/${taskToEdit.id}`, {
+      const updatedData={
         title: editedTitle,
         description: editedDescription,
+        deadline: editDeadline,
+        priority: editPriority,
+      };
+
+      await axios.patch(`${API_URL}/tasks/${taskToEdit.id}`,updatedData,{
+        withCredentials: true
       });
+
       setTasks((prev) =>
         prev.map((task) =>
           task.id === taskToEdit.id
-            ? { ...task, title: editedTitle, description: editedDescription }
+            ? { ...task, title: editedTitle, description: editedDescription,}
             : task
         )
       );
