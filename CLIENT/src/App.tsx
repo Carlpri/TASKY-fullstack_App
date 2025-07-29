@@ -13,6 +13,7 @@ import TrashPage from './pages/TrashPage';
 import ProfilePage from './pages/ProfilePage';
 import './App.css';
 import { createTheme,ThemeProvider } from '@mui/material/styles'
+import axios from 'axios';
 
 const theme = createTheme({
   palette:{
@@ -38,6 +39,8 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
     </div>
   );
 };
+
+axios.defaults.withCredentials=true;
 
 function App() {
   return (

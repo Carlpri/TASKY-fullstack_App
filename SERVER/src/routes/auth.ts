@@ -118,9 +118,9 @@ router.post('/login', [
     res
   .cookie('token', token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production', // only send over HTTPS in production
-    sameSite: 'lax', // or 'none' if using cross-site requests with HTTPS
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    secure: true,
+    sameSite: 'None', 
+    
   })
   .json({
     message: 'Login successful',
