@@ -76,7 +76,9 @@ const TasksPage: React.FC = () => {
   const fetchTasks = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("/api/tasks?status=active");
+      const response = await axios.get(`${API_URL}/tasks?status=active`,{
+        withCredentials:true
+      });
       setTasks(response.data.tasks);
     } catch (err: any) {
       setError(err.response?.data?.message || "Failed to fetch tasks");
