@@ -70,11 +70,31 @@ const LandingPage: React.FC = () => {
     }
   ];
 
+  const customerReviews = [
+  {
+    name: 'Kim Doe',
+    avatar: 'https://i.pravatar.cc/150?img=1',
+    review: 'TASKY changed the way I work! I’m 3x more productive now.',
+  },
+  {
+    name: 'John Kimani',
+    avatar: 'https://i.pravatar.cc/150?img=2',
+    review: 'Managing my personal and work tasks has never been easier!',
+  },
+  {
+    name: 'Wiliam Wekesa',
+    avatar: 'https://i.pravatar.cc/150?img=3',
+    review: 'I love the UI and how intuitive it is. TASKY rocks!',
+  }
+];
+
+
   return (
     <Box sx={{ 
       minHeight: '100vh',
       background: 'linear-gradient(135deg, #bccbe2ff 0%, #7551b8ff 100%)',
       py: 3
+      
     }}>
       <Container maxWidth="lg">
         <Grid container spacing={6} alignItems="center">
@@ -153,7 +173,9 @@ const LandingPage: React.FC = () => {
                 position: 'fixed',
                 top: 30,
                 right: 30,
-                justifyContent: { xs: 'center', md: 'flex-start' } }}>
+                justifyContent: { xs: 'center', md: 'flex-start' },
+                
+                }}>
                 <Button
                   component={Link}
                   to="/register"
@@ -261,53 +283,75 @@ const LandingPage: React.FC = () => {
               </Paper>
             </Box>
           </Grid  >
+<Grid item xs={12}>
+  <Typography 
+    variant="h3" 
+    component="h1" 
+    sx={{ 
+      fontWeight: 600,
+      mb: 1,
+      background: 'linear-gradient(135deg, #4a177eff 0%,  #445fd4ff 100%)',
+      backgroundClip: 'text',
+      WebkitBackgroundClip: 'text',
+      WebkitTextFillColor: 'transparent',
+      fontFamily: "Lobster",
+      letterSpacing:"4px",
+      textAlign: 'center'
+    }}
+  >
+    Customer <Box component="span" sx={{ color: '#5825b6ff' }}>Reviews</Box>
+  </Typography>
 
-          <Grid item xs={12} md={6}  >
-            <Typography 
-                variant="h3" 
-                component="h1" 
-                sx={{ 
-                  fontWeight: 600,
-                  mb: 1,
-                  background: 'linear-gradient(135deg, #7726c9ff 0%,  #445fd4ff 100%)',
-                  backgroundClip: 'text',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  fontFamily: "Lobster",
-                  letterSpacing:"4px"
-                }}
-              >
-                Customer{' '}
-                <Box component="span" sx={{ color: '#5825b6ff' }}>
-                  Reviews
-                </Box>
+  <Typography 
+    variant="h6" 
+    color="text.main" 
+    sx={{ mb: 4, textAlign: 'center', lineHeight: 1.6 }}
+  >
+    What are our customers saying about us?
+  </Typography>
+
+  <Grid container spacing={3}>
+    {customerReviews.map((review, index) => (
+      <Grid item xs={12} sm={6} md={4} key={index}>
+        <Card
+          sx={{
+            position: 'relative',
+            height: '100%',
+            p: 3,
+            background: 'linear-gradient(135deg, #4b4ddbff 0%, #590da5ff 100%)',
+            color: '#fff',
+            borderRadius: 3,
+            boxShadow: 4,
+            transition: 'transform 0.3s ease',
+            '&:hover': {
+              transform: 'translateY(-6px)',
+              boxShadow: 6
+            }
+          }}
+        >
+          <Box sx={{ position: 'absolute', top: 16, right: 16, display: 'flex', alignItems: 'center' }}>
+            <img 
+              src={review.avatar} 
+              alt={review.name} 
+              style={{ width: 40, height: 40, borderRadius: '50%', marginRight: 8, border: '2px solid white' }}
+            />
+            <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>{review.name}</Typography>
+          </Box>
+          <CardContent sx={{ mt: 6 }}>
+            <Typography variant="body1" sx={{ fontStyle: 'italic' }}>
+              "{review.review}"
+            </Typography>
+            <Typography>
+              <br />
+              ⭐⭐⭐⭐⭐
               </Typography>
-              <Typography 
-                variant="h6" 
-                color="text.main" 
-                sx={{ mb: 2, lineHeight: 1.6 }}
-              >
-                What are our customers saying about us?
-              </Typography>
-            <Card 
-                      sx={{
-                        height: '100%',
-                        textAlign: 'center',
-                        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-                        '&:hover': {
-                          transform: 'translateY(-4px)',
-                          boxShadow: 3
-                        }
-                      }}
-            >
-              <CardContent>
-                <Typography>
-                      I have improved my productivity since I started using TASKY app to manage my tasks. Nearly I have been productive 75% more.
-                </Typography>
-              </CardContent>
-            </Card >
-            
-          </Grid>
+          </CardContent>
+        </Card>
+      </Grid>
+    ))}
+  </Grid>
+</Grid>
+
         </Grid>
       </Container>
     </Box>
